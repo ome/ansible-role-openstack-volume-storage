@@ -4,7 +4,6 @@ Openstack Volume Storage
 Create and attach a volume to an Openstack instance.
 
 Note this requires Ansible 2.3 features in `os_volume`.
-A bundled version of the updated module is temporarily included as `library/os_volume_ansible23.py`.
 
 
 Role Variables
