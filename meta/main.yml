@@ -8,6 +8,7 @@ galaxy_info:
   - name: EL
     versions:
     - 7
+  role_name: openstack_volume_storage
   galaxy_tags: []
 
 dependencies: []

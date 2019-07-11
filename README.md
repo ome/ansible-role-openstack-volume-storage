@@ -1,6 +1,9 @@
 Openstack Volume Storage
 ========================
 
+[![Build Status](https://travis-ci.org/ome/ansible-role-openstack-volume-storage.svg)](https://travis-ci.org/ome/ansible-role-openstack-volume-storage)
+[![Ansible Role](https://img.shields.io/ansible/role/41992.svg)](https://galaxy.ansible.com/ome/openstack_volume_storage/)
+
 Create and attach a volume to an Openstack instance.
 
 Note this requires Ansible 2.3 features in `os_volume`.
