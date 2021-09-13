@@ -8,6 +8,7 @@
     display_name: "{{ openstack_volume_vmname }}-{{ openstack_volume_name }}"
     snapshot_id: "{{ openstack_volume_snapshot | default(omit) }}"
     volume: "{{ openstack_volume_source | default(omit) }}"
+    volume_type: "{{ openstack_volume_type | default(omit) }}"
 
 - name: openstack volume | attach volume to host
   os_server_volume:
