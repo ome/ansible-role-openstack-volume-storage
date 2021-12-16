@@ -1,14 +1,30 @@
 ---
 # tasks file for roles/openstack-volume-storage
 
+- name: openstack volume | create snapshot
+  os_volume_snapshot:
+    state: present
+    size: "{{ openstack_volume_size }}"
+    display_name: "{{ openstack_volume_source }}-{{ ansible_date_time.iso8601 }}"
+    volume: "{{ openstack_volume_source | default(omit) }}"
+    force: true
+  register: snapshot
+  when: openstack_volume_source is defined
+
 - name: openstack volume | create volume
   os_volume:
     state: present
     size: "{{ openstack_volume_size }}"
     display_name: "{{ openstack_volume_vmname }}-{{ openstack_volume_name }}"
-    snapshot_id: "{{ openstack_volume_snapshot | default(omit) }}"
-    volume: "{{ openstack_volume_source | default(omit) }}"
+    snapshot_id: "{{ snapshot.id | default(omit) }}"
     volume_type: "{{ openstack_volume_type | default(omit) }}"
+
+- name: openstack volume | delete snapshot
+  os_volume_snapshot:
+    state: absent
+    display_name: "{{ openstack_volume_source }}-{{ ansible_date_time.iso8601 }}"
+    volume: "{{ openstack_volume_source | default(omit) }}"
+  when: openstack_volume_source is defined
 
 - name: openstack volume | attach volume to host
   os_server_volume:
