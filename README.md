@@ -19,6 +19,10 @@ Required variables:
 - `openstack_volume_name`: The name of the volume
 - `openstack_volume_device`: The device name of the volume in the instance (default: automatically determined by Openstack)
 - `openstack_volume_type`: The type of volume
+- `openstack_volume_source`: The name of the volume to clone.
+
+If `openstack_volume_source` is specified, the role will create a temporary
+snapshot and use this snapshot as the source of the new volume.
 
 
 Author Information
