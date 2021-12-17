@@ -4,7 +4,7 @@
 - block:
     - name: openstack volume | create temporary snapshot name
       set_fact:
-        openstack_volume_snapshot_name: >
+        openstack_volume_snapshot_name: >-
           {{ openstack_volume_source }}-{{ ansible_date_time.iso8601 }}
       when: openstack_volume_source is defined
 
