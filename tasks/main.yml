@@ -2,11 +2,16 @@
 # tasks file for roles/openstack-volume-storage
 
 - block:
+    - name: openstack volume | create temporary snapshot name
+      set_fact:
+        openstack_volume_snapshot_name: >
+          {{ openstack_volume_source }}-{{ ansible_date_time.iso8601 }}
+      when: openstack_volume_source is defined
+
     - name: openstack volume | create snapshot
       os_volume_snapshot:
         state: present
-        display_name: >
-          {{ openstack_volume_source }}-{{ ansible_date_time.iso8601 }}
+        display_name: "{{ openstack_volume_snapshot_name }}"
         volume: "{{ openstack_volume_source | default(omit) }}"
         force: true
       register: snapshot
@@ -32,7 +37,6 @@
     - name: openstack volume | delete snapshot
       os_volume_snapshot:
         state: absent
-        display_name: >
-          {{ openstack_volume_source }}-{{ ansible_date_time.iso8601 }}
+        display_name: "{{ openstack_volume_snapshot_name }}"
         volume: "{{ openstack_volume_source | default(omit) }}"
       when: openstack_volume_source is defined
