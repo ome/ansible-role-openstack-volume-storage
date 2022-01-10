@@ -1,42 +1,34 @@
 ---
 # tasks file for roles/openstack-volume-storage
 
-- block:
-    - name: openstack volume | create temporary snapshot name
-      set_fact:
-        openstack_volume_snapshot_name: >-
-          {{ openstack_volume_vmname }}-{{ openstack_volume_name }}-
-          {{ ansible_date_time.iso8601 }}
-      when: openstack_volume_source is defined
+- name: openstack volume | create temporary snapshot name
+  set_fact:
+    openstack_volume_snapshot_name: >-
+      {{ openstack_volume_vmname }}-{{ openstack_volume_name }}-
+      {{ ansible_date_time.iso8601 }}
+  when: openstack_volume_source is defined
 
-    - name: openstack volume | create snapshot
-      os_volume_snapshot:
-        state: present
-        display_name: "{{ openstack_volume_snapshot_name }}"
-        volume: "{{ openstack_volume_source }}"
-        force: true
-      register: results
-      when: openstack_volume_source is defined
+- name: openstack volume | create snapshot
+  os_volume_snapshot:
+    state: present
+    display_name: "{{ openstack_volume_snapshot_name }}"
+    volume: "{{ openstack_volume_source }}"
+    force: true
+  register: results
+  when: openstack_volume_source is defined
 
-    - name: openstack volume | create volume
-      os_volume:
-        state: present
-        size: "{{ openstack_volume_size }}"
-        display_name: >
-          {{ openstack_volume_vmname }}-{{ openstack_volume_name }}
-        snapshot_id: "{{ results.snapshot.id | default(omit) }}"
-        volume_type: "{{ openstack_volume_type | default(omit) }}"
+- name: openstack volume | create volume
+  os_volume:
+    state: present
+    size: "{{ openstack_volume_size }}"
+    display_name: >
+      {{ openstack_volume_vmname }}-{{ openstack_volume_name }}
+    snapshot_id: "{{ results.snapshot.id | default(omit) }}"
+    volume_type: "{{ openstack_volume_type | default(omit) }}"
 
-    - name: openstack volume | attach volume to host
-      os_server_volume:
-        state: present
-        server: "{{ openstack_volume_vmname }}"
-        volume: "{{ openstack_volume_vmname }}-{{ openstack_volume_name }}"
-        device: "{{ openstack_volume_device | default(omit) }}"
-  always:
-    - name: openstack volume | delete snapshot
-      os_volume_snapshot:
-        state: absent
-        display_name: "{{ openstack_volume_snapshot_name }}"
-        volume: "{{ openstack_volume_source }}"
-      when: openstack_volume_source is defined
+- name: openstack volume | attach volume to host
+  os_server_volume:
+    state: present
+    server: "{{ openstack_volume_vmname }}"
+    volume: "{{ openstack_volume_vmname }}-{{ openstack_volume_name }}"
+    device: "{{ openstack_volume_device | default(omit) }}"
