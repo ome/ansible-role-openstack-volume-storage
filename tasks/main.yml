@@ -5,7 +5,8 @@
     - name: openstack volume | create temporary snapshot name
       set_fact:
         openstack_volume_snapshot_name: >-
-          {{ openstack_volume_source }}-{{ ansible_date_time.iso8601 }}
+          {{ openstack_volume_vmname }}-{{ openstack_volume_name }}-
+          {{ ansible_date_time.iso8601 }}
       when: openstack_volume_source is defined
 
     - name: openstack volume | create snapshot
