@@ -21,8 +21,11 @@ Required variables:
 - `openstack_volume_type`: The type of volume
 - `openstack_volume_source`: The name of the volume to clone.
 
-If `openstack_volume_source` is specified, the role will create a temporary
-snapshot and use this snapshot as the source of the new volume.
+If `openstack_volume_source` is specified, the role will create an intermediate
+volume snapshot, named after `openstack_volume_name` and suffixed with the 
+creation timestamp, and use this snapshot as the source of the new volume. The
+lifecycle of this snapshot will need to be managed separately similarly to the
+lifecycle of the new volume.
 
 
 Author Information
