@@ -17,6 +17,7 @@
     display_name: "{{ openstack_volume_name }}"
     snapshot_id: "{{ results.snapshot.id | default(omit) }}"
     volume_type: "{{ openstack_volume_type | default(omit) }}"
+    wait: "{{ openstack_volume_vmname is defined }}"
 
 - name: openstack volume | delete source snapshot
   os_volume_snapshot:
