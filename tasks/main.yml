@@ -24,7 +24,8 @@
     state: absent
     display_name: "{{ openstack_volume_name }}-source"
     volume: "{{ openstack_volume_source }}"
-  when: openstack_volume_vmname is defined
+  when: >-
+    openstack_volume_vmname is defined and openstack_volume_source is defined
 
 - name: openstack volume | attach volume to host
   os_server_volume:
