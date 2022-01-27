@@ -1,0 +1,3 @@
+---
+# Wait for the volume
+openstack_volume_wait: True
