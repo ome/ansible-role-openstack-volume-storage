@@ -21,8 +21,7 @@ Required variables:
 - `openstack_volume_type`: The type of volume (default: automatically determined by OpenStack)
 - `openstack_volume_source`: If defined, the name of an existing volume to use as the source of the volume creation. An temporary volume snapshot will be created, named after `openstack_volume_name` and suffixed with `-source` and cleaned after the volume is created.
 - `openstack_volume_vmname`: If defined, the name of an existing instance the volume should be attached to.
-- `openstack_volume_wait`: If False, do not wait for volume creation to be
-  complete and skip the snapshot cleanup and/or the volume attachment (default: true).
+- `openstack_volume_wait`: If set to `false`, do not wait for volume creation to complete. In this case, the snapshot cleanup and/or the volume attachment will also be skipped (default: true).
 
 Author Information
 ------------------
