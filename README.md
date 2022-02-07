@@ -1,10 +1,11 @@
-Openstack Volume Storage
+OpenStack Volume Storage
 ========================
 
 [![Actions Status](https://github.com/ome/ansible-role-openstack-volume-storage/workflows/Molecule/badge.svg)](https://github.com/ome/ansible-role-openstack-volume-storage/actions)
 [![Ansible Role](https://img.shields.io/ansible/role/41992.svg)](https://galaxy.ansible.com/ome/openstack_volume_storage/)
 
-Create and attach a volume to an Openstack instance.
+Create an OpenStack Cinder volume and optionally attach it to an OpenStack
+instance.
 
 Note this requires Ansible 2.3 features in `os_volume`.
 
@@ -15,18 +16,12 @@ Role Variables
 Required variables:
 
 - `openstack_volume_size`: Size of the volume in GB
-- `openstack_volume_vmname`: The name of the instance the volume should be attached to
 - `openstack_volume_name`: The name of the volume
-- `openstack_volume_device`: The device name of the volume in the instance (default: automatically determined by Openstack)
-- `openstack_volume_type`: The type of volume
-- `openstack_volume_source`: The name of the volume to clone.
-
-If `openstack_volume_source` is specified, the role will create an intermediate
-volume snapshot, named after `openstack_volume_name` and suffixed with the 
-creation timestamp, and use this snapshot as the source of the new volume. The
-lifecycle of this snapshot will need to be managed separately similarly to the
-lifecycle of the new volume.
-
+- `openstack_volume_device`: The device name of the volume in the instance (default: automatically determined by OpenStack)
+- `openstack_volume_type`: The type of volume (default: automatically determined by OpenStack)
+- `openstack_volume_source`: If defined, the name of an existing volume to use as the source of the volume creation.
+- `openstack_volume_vmname`: If defined, the name of an existing instance the volume should be attached to.
+- `openstack_volume_wait`: If set to `false`, do not wait for the volume creation to complete, skip the cleanup of the intermediate source volume snapshot if `openstack_volume_source` is defined and skip the volume attachment if `openstack_volume_vmname` is defined (default: true).
 
 Author Information
 ------------------
