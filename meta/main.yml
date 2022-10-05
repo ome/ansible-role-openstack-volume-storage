@@ -4,7 +4,7 @@ galaxy_info:
   description: Create and attach a volume to an Openstack instance
   company: Open Microscopy Environment
   license: BSD
-  min_ansible_version: 2.3
+  min_ansible_version: 2.10
   platforms:
     - name: EL
       versions:
