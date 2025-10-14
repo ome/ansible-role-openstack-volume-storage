@@ -4,11 +4,12 @@ galaxy_info:
   description: Create and attach a volume to an Openstack instance
   company: Open Microscopy Environment
   license: BSD
-  min_ansible_version: 2.3
+  min_ansible_version: 2.11
   platforms:
     - name: EL
       versions:
-        - 7
+        - 9
+  namespace: ome
   role_name: openstack_volume_storage
   galaxy_tags: []
 
