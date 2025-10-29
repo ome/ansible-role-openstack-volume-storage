@@ -2,7 +2,7 @@
 # tasks file for roles/openstack-volume-storage
 
 - name: openstack volume | create source snapshot
-  ansible.builtin.os_volume_snapshot:
+  os_volume_snapshot.volume_snapshot:
     state: present
     display_name: "{{ openstack_volume_name }}-source"
     volume: "{{ openstack_volume_source }}"
