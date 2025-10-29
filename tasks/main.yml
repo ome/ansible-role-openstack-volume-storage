@@ -11,7 +11,7 @@
   when: openstack_volume_source is defined
 
 - name: openstack volume | create volume
-  ansible.builtin.os_volume:
+  openstack.cloud.volume:
     state: present
     size: "{{ openstack_volume_size }}"
     display_name: "{{ openstack_volume_name }}"
