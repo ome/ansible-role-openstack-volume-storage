@@ -27,7 +27,7 @@
   when: openstack_volume_wait and (openstack_volume_source is defined)
 
 - name: openstack volume | attach volume to host
-  ansible.builtin.os_server_volume:
+  openstack.cloud.server_volume:
     state: present
     server: "{{ openstack_volume_vmname }}"
     volume: "{{ openstack_volume_name }}"
